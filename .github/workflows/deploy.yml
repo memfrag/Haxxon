@@ -23,7 +23,9 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      # npm install (not ci): the macOS-generated lockfile omits Linux-only
+      # optional native deps (Vite/rolldown), which `npm ci` rejects.
+      - run: npm install --no-audit --no-fund
       - name: Build
         run: npm run build
         env:
