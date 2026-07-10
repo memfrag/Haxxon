@@ -63,6 +63,7 @@ function makeStarfield(): THREE.Points {
     });
 
     scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x30281e, 0.75));
+    scene.add(new THREE.AmbientLight(0x9fb0d8, 0.28));
     const dir = new THREE.DirectionalLight(0xffffff, 1.9);
     // Light from the screen's lower-left (world -X/+Z, high up) so shadows fall to the upper-right.
     dir.position.set(-22, 30, 20);
