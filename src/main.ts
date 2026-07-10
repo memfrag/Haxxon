@@ -64,13 +64,14 @@ function makeStarfield(): THREE.Points {
 
     scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x30281e, 0.75));
     const dir = new THREE.DirectionalLight(0xffffff, 1.9);
-    dir.position.set(18, 34, 14);
+    // Light from the screen's lower-left (world -X/+Z, high up) so shadows fall to the upper-right.
+    dir.position.set(-22, 30, 20);
     dir.target.position.set(0, 0, -8);
     scene.add(dir.target);
     dir.castShadow = true;
-    dir.shadow.mapSize.set(1024, 1024);
+    dir.shadow.mapSize.set(2048, 2048);
     const sc = dir.shadow.camera;
-    sc.left = -32; sc.right = 32; sc.top = 32; sc.bottom = -32;
+    sc.left = -34; sc.right = 34; sc.top = 34; sc.bottom = -34;
     sc.near = 1; sc.far = 150;
     dir.shadow.bias = -0.0004;
     dir.shadow.normalBias = 0.02;
