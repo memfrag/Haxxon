@@ -36,6 +36,8 @@ function makeStarfield(): THREE.Points {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     app.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -60,9 +62,18 @@ function makeStarfield(): THREE.Points {
       camera.updateProjectionMatrix();
     });
 
-    scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x30281e, 1.1));
-    const dir = new THREE.DirectionalLight(0xffffff, 1.6);
-    dir.position.set(15, 30, 10);
+    scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x30281e, 0.75));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.9);
+    dir.position.set(18, 34, 14);
+    dir.target.position.set(0, 0, -8);
+    scene.add(dir.target);
+    dir.castShadow = true;
+    dir.shadow.mapSize.set(1024, 1024);
+    const sc = dir.shadow.camera;
+    sc.left = -32; sc.right = 32; sc.top = 32; sc.bottom = -32;
+    sc.near = 1; sc.far = 150;
+    dir.shadow.bias = -0.0004;
+    dir.shadow.normalBias = 0.02;
     scene.add(dir);
 
     scene.add(makeStarfield());

@@ -19,6 +19,10 @@ export class Player {
 
   constructor(scene: THREE.Scene) {
     this.mesh = clone('ship');
+    this.mesh.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) m.castShadow = true;
+    });
     this.mesh.position.set(0, this.y, 0);
     scene.add(this.mesh);
 

@@ -22,6 +22,13 @@ function randYaw(mesh: THREE.Object3D): void {
   mesh.rotation.y = (Math.floor(Math.random() * 4) * Math.PI) / 2;
 }
 
+function setShadow(obj: THREE.Object3D, cast: boolean, receive: boolean): void {
+  obj.traverse((o) => {
+    const m = o as THREE.Mesh;
+    if (m.isMesh) { m.castShadow = cast; m.receiveShadow = receive; }
+  });
+}
+
 interface DecorSpec { model: ModelName; height: number; half: number }
 
 const DECOR: Record<string, DecorSpec> = {
@@ -64,6 +71,7 @@ export function buildFortress(def: SegmentDef, start: number): Segment {
   const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(0, -0.02, -SEG_LEN / 2);
+  floor.receiveShadow = true;
   group.add(floor);
 
   // Fortress rim edges.
@@ -193,6 +201,10 @@ export function buildFortress(def: SegmentDef, start: number): Segment {
     group.add(gate);
   }
 
+  // Props (walls, turrets, fuel, decor, gate) cast and receive; the floor only receives.
+  setShadow(group, true, true);
+  floor.castShadow = false;
+
   decorateGround(group, def);
 
   return { kind: 'fortress', start, len: SEG_LEN, group, colliders, turrets, spinners: [] };
@@ -236,6 +248,7 @@ function decorateGround(group: THREE.Group, def: SegmentDef): void {
     for (let r = 0; r < SEG_ROWS; r++) {
       if (filled[r][c]) continue;
       const road = clone('road');
+      setShadow(road, false, true);
       place(road, cellCenterX(c), 0, cellCenterZ(r));
       group.add(road);
       filled[r][c] = true;
@@ -248,6 +261,7 @@ function decorateGround(group: THREE.Group, def: SegmentDef): void {
       if (filled[r][c] || Math.random() > 0.15) continue;
       const mesh = clone(pickGroundDetail());
       randYaw(mesh);
+      setShadow(mesh, false, true);
       place(mesh, cellCenterX(c), 0, cellCenterZ(r));
       group.add(mesh);
       filled[r][c] = true;
@@ -282,6 +296,7 @@ export function buildSpace(start: number, level: number): Segment {
     const model = METEOR_MODELS[Math.floor(Math.random() * METEOR_MODELS.length)];
     const mesh = clone(model);
     mesh.scale.multiplyScalar(s);
+    setShadow(mesh, true, true);
     const z = cellCenterZ(row);
     mesh.position.set(x, y - 0.36 * s, z);
     group.add(mesh);
