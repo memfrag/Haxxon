@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HAXXON</title>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="hud" class="hidden">
+    <div id="score-panel">
+      <div>SCORE <span id="score">000000</span></div>
+      <div class="dim">HI <span id="hiscore">000000</span></div>
+    </div>
+    <div id="level-panel">LEVEL <span id="level">1</span></div>
+    <div id="lives-panel"></div>
+    <div id="alt-meter"><div id="alt-fill"></div></div>
+    <div id="fuel-panel">
+      <span class="label">FUEL</span>
+      <div id="fuel-bar"><div id="fuel-fill"></div></div>
+    </div>
+    <div id="flash-msg"></div>
+  </div>
+  <div id="overlay-loading" class="overlay">
+    <h1>HAXXON</h1>
+    <div class="loading-bar"><div id="loading-fill"></div></div>
+  </div>
+  <div id="overlay-title" class="overlay hidden">
+    <h1>HAXXON</h1>
+    <p class="tagline">INFILTRATE THE FORTRESS</p>
+    <p class="hi">HIGH SCORE <span id="title-hiscore">000000</span></p>
+    <div class="controls">
+      <p>MOVE &nbsp;<b>&larr;&rarr;</b> / <b>A D</b></p>
+      <p>ALTITUDE &nbsp;<b>&uarr;&darr;</b> / <b>W S</b> &nbsp;(<b>I</b> invert)</p>
+      <p>FIRE &nbsp;<b>SPACE</b> &nbsp;&middot;&nbsp; <b>P</b> pause &nbsp;&middot;&nbsp; <b>M</b> mute</p>
+    </div>
+    <p class="blink">PRESS SPACE TO START</p>
+  </div>
+  <div id="overlay-gameover" class="overlay hidden">
+    <h1>GAME OVER</h1>
+    <p class="score-line">SCORE <span id="go-score">000000</span></p>
+    <p class="hi" id="go-hi-line">HIGH SCORE <span id="go-hiscore">000000</span></p>
+    <p class="blink">PRESS R TO RESTART</p>
+  </div>
+  <div id="overlay-paused" class="overlay hidden"><h2>PAUSED</h2></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

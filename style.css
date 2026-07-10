@@ -1,0 +1,38 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #0b0e1a; }
+body { font-family: "Courier New", ui-monospace, monospace; color: #eef2ff; }
+#app, #app canvas { position: fixed; inset: 0; display: block; }
+.hidden { display: none !important; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 10;
+  text-shadow: 0 0 6px rgba(0,0,0,.9); font-size: 18px; letter-spacing: 2px; }
+#score-panel { position: absolute; top: 16px; left: 20px; }
+#score-panel .dim { color: #8b93b8; font-size: 14px; margin-top: 4px; }
+#level-panel { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); color: #f5a03c; }
+#lives-panel { position: absolute; top: 16px; right: 20px; color: #f5a03c; font-size: 20px; letter-spacing: 6px; }
+#alt-meter { position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  width: 10px; height: 40vh; border: 2px solid #3a4160; background: rgba(10,14,30,.6); }
+#alt-fill { position: absolute; bottom: 0; width: 100%; background: #6fd3ff; height: 0%; }
+#fuel-panel { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; }
+#fuel-panel .label { color: #f5a03c; }
+#fuel-bar { width: 320px; height: 16px; border: 2px solid #3a4160; background: rgba(10,14,30,.6); }
+#fuel-fill { height: 100%; width: 100%; background: #f5a03c; transition: background .2s; }
+#fuel-fill.low { background: #ff4b3a; }
+#flash-msg { position: absolute; top: 22%; left: 50%; transform: translateX(-50%);
+  color: #f5a03c; font-size: 22px; opacity: 0; transition: opacity .25s; }
+
+.overlay { position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 18px;
+  background: rgba(5, 8, 18, 0.78); letter-spacing: 3px; text-align: center; }
+.overlay h1 { font-size: 64px; color: #f5a03c; letter-spacing: 12px;
+  text-shadow: 4px 4px 0 #7a4310, 0 0 30px rgba(245,160,60,.35); }
+.overlay .tagline { color: #8b93b8; }
+.overlay .hi { color: #6fd3ff; }
+.overlay .controls { color: #aab2d5; font-size: 14px; line-height: 2; }
+.overlay .controls b { color: #eef2ff; }
+.overlay .score-line { font-size: 24px; }
+.blink { animation: blink 1.1s step-end infinite; color: #eef2ff; }
+@keyframes blink { 50% { opacity: 0; } }
+.loading-bar { width: 300px; height: 12px; border: 2px solid #3a4160; }
+#loading-fill { height: 100%; width: 0%; background: #6fd3ff; }
