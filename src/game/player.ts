@@ -28,7 +28,7 @@ export class Player {
 
     const shadowGeo = new THREE.CircleGeometry(0.55, 24);
     const shadowMat = new THREE.MeshBasicMaterial({
-      color: 0x000000, transparent: true, opacity: 0.4, depthWrite: false,
+      color: 0x000000, transparent: true, opacity: 0.26, depthWrite: false,
     });
     this.shadow = new THREE.Mesh(shadowGeo, shadowMat);
     this.shadow.rotation.x = -Math.PI / 2;
